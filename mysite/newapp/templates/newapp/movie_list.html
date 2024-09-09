@@ -1,0 +1,180 @@
+
+<!-- Searchbar code -->
+<!-- <form action="" method="get">
+    <input type="search" name="movie_name">
+    <button type="submit">Search</button>
+</form> -->
+
+
+<!-- pagination code -->
+<!-- {% for movie_item in movies %}
+    <div class="movie-list">{{movie_item.name}}</div>
+{% endfor %}
+
+{% if movies.has_previous %}
+    <a href="?page=1">Fisrt</a>
+    <a href="?page={{ movies.previous_page_number }}">Previous</a>
+{% endif %}
+
+Page: {{ movies.number }} of {{ movies.paginator.num_pages }}
+
+{% if movies.has_next %}
+    <a href="?page={{ movies.next_page_number }}">Next</a>
+    <a href="?page={{ movies.paginator.num_pages }}">Last</a>
+{% endif %} -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+            font-size: 2.5rem;
+        }
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .search-bar input[type="search"] {
+            padding: 12px;
+            width: 65%;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        .search-bar button {
+            padding: 12px 25px;
+            margin-left: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+        .search-bar button:hover {
+            background-color: #218838;
+        }
+        .movie-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+        }
+        .movie-item img {
+            width: 100px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+        }
+        .movie-details {
+            flex-grow: 1;
+        }
+        .movie-details h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+        .movie-details p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #555;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        .pagination a {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+        .pagination span {
+            padding: 10px 20px;
+            margin: 0 5px;
+            background-color: #6c757d;
+            color: white;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Movie List</h1>
+
+    <!-- Searchbar code -->
+    <div class="search-bar">
+        <form action="" method="get">
+            <input type="search" name="movie_name" placeholder="Search movies by name...">
+            <button type="submit">Search</button>
+        </form>
+    </div>
+
+    <!-- Movies list -->
+    {% for movie_item in movies %}
+        <div class="movie-item">
+            {% if movie_item.image %}
+                <img src="{{ movie_item.image.url }}" alt="{{ movie_item.name }}">
+            {% else %}
+                <img src="https://via.placeholder.com/100x150.png?text=No+Image" alt="No Image">
+            {% endif %}
+            <div class="movie-details">
+                <h2>{{ movie_item.name }}</h2>
+                <p>Rating: {{ movie_item.ratting }}</p>
+                <p>Release Date: {{ movie_item.release_date }}</p>
+            </div>
+        </div>
+    {% endfor %}
+
+    <!-- Pagination code -->
+    <div class="pagination">
+        {% if movies.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ movies.previous_page_number }}">Previous</a>
+        {% endif %}
+
+        <span>Page: {{ movies.number }} of {{ movies.paginator.num_pages }}</span>
+
+        {% if movies.has_next %}
+            <a href="?page={{ movies.next_page_number }}">Next</a>
+            <a href="?page={{ movies.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
